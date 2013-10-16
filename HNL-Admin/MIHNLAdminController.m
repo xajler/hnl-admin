@@ -22,7 +22,7 @@
     self.seasons = [self.query getSeasons];
     self.gameResults = [self.query getGameResultsForSeason:nil];
     self.calendarItems = [self.query getCalendarItems];
-    self.leagueTableItems = [self.query getLeagueTableItemsForSeason:@"1992"];
+    self.leagueTableItems = [self.query getLeagueTableItemsForSeason:@"2013/14"];
     
     return self;
 }
@@ -83,6 +83,6 @@
     leagueTableItem.season = [self.seasons objectAtIndex:[self.leagueTableSeasonComboBox indexOfSelectedItem]];
     
     [self.query saveLeagueTableItem:leagueTableItem];
-    self.leagueTableItems = [self.query getLeagueTableItemsForSeason:@"1992"];
+    self.leagueTableItems = [self.query getLeagueTableItemsForSeason:@"2013/14"];
 }
 @end
