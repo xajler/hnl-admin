@@ -3,6 +3,7 @@
 #import "MIClub.h"
 #import "MIGameResult.h"
 #import "MICalendarItem.h"
+#import "MILeagueTableItem.h"
 
 @interface MIHNLAdminController ()
 
@@ -19,8 +20,9 @@
     self.query = [[MISqlLiteQuery alloc] init];
     self.clubs = [self.query getClubs];
     self.seasons = [self.query getSeasons];
-    self.gameResults = [self.query getGameResultsFor:nil];
+    self.gameResults = [self.query getGameResultsForSeason:nil];
     self.calendarItems = [self.query getCalendarItems];
+    self.leagueTableItems = [self.query getLeagueTableItemsForSeason:@"1992"];
     
     return self;
 }
@@ -64,6 +66,23 @@
     gameResult.season = [self.seasons objectAtIndex:[self.resultSeasonComboBox indexOfSelectedItem]];
     
     [self.query saveGameResult:gameResult];
-    self.gameResults = [self.query getGameResultsFor:nil];
+    self.gameResults = [self.query getGameResultsForSeason:nil];
+}
+
+- (IBAction)saveLeagueTableItem:(id)sender
+{
+    MILeagueTableItem *leagueTableItem = [[MILeagueTableItem alloc] init];
+    leagueTableItem.position = [NSNumber numberWithInteger:[self.positonTextField.stringValue integerValue]];
+    leagueTableItem.wins = [NSNumber numberWithInteger:[self.winsTextField.stringValue integerValue]];
+    leagueTableItem.draws = [NSNumber numberWithInteger:[self.drawsTextField.stringValue integerValue]];
+    leagueTableItem.loses = [NSNumber numberWithInteger:[self.losesTextField.stringValue integerValue]];
+    leagueTableItem.goalFor = [NSNumber numberWithInteger:[self.goalForTextField.stringValue integerValue]];
+    leagueTableItem.goalAgainst = [NSNumber numberWithInteger:[self.goalAgainstTextField.stringValue integerValue]];
+    leagueTableItem.points = [NSNumber numberWithInteger:[self.pointsTextField.stringValue integerValue]];
+    leagueTableItem.club = (MIClub *)[self.clubs objectAtIndex:[self.leagueTableClubComboBox indexOfSelectedItem]];
+    leagueTableItem.season = [self.seasons objectAtIndex:[self.leagueTableSeasonComboBox indexOfSelectedItem]];
+    
+    [self.query saveLeagueTableItem:leagueTableItem];
+    self.leagueTableItems = [self.query getLeagueTableItemsForSeason:@"1992"];
 }
 @end

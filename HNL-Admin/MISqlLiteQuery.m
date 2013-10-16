@@ -4,6 +4,7 @@
 #import "MIClub.h"
 #import "MIGameResult.h"
 #import "MICalendarItem.h"
+#import "MILeagueTableItem.h"
 
 @implementation MISqlLiteQuery
 
@@ -52,7 +53,7 @@ NSString *path;
     return result;
 }
 
--(NSMutableArray *)getGameResultsFor:(NSString *)season
+-(NSMutableArray *)getGameResultsForSeason:(NSString *)season
 {
     clubs = [self getClubs];
     
@@ -148,6 +149,43 @@ NSString *path;
     return result;
 }
 
+-(NSMutableArray *)getLeagueTableItemsForSeason:(NSString *)season
+{
+    clubs = [self getClubs];
+    
+    [db open];
+    
+    NSMutableArray *result = [[NSMutableArray alloc] init];
+    
+    FMResultSet *resultSet = [db executeQuery:@"SELECT id, position, wins, draws, loses, goal_for, "
+                                                      "goal_against, points, clubid, season "
+                                               "FROM league_tables "
+                                               "WHERE season = ? "
+                                               "ORDER BY position", season];
+    
+    while ([resultSet next])
+    {
+        MILeagueTableItem *leagueTable = [[MILeagueTableItem alloc] init];
+        leagueTable.id = [NSNumber numberWithInt:[resultSet intForColumn:@"id"]];
+        leagueTable.position = [NSNumber numberWithInt:[resultSet intForColumn:@"position"]];
+        leagueTable.wins = [NSNumber numberWithInt:[resultSet intForColumn:@"wins"]];
+        leagueTable.draws = [NSNumber numberWithInt:[resultSet intForColumn:@"draws"]];
+        leagueTable.loses = [NSNumber numberWithInt:[resultSet intForColumn:@"loses"]];
+        leagueTable.goalFor = [NSNumber numberWithInt:[resultSet intForColumn:@"goal_for"]];
+        leagueTable.goalAgainst = [NSNumber numberWithInt:[resultSet intForColumn:@"goal_against"]];
+        leagueTable.points = [NSNumber numberWithInt:[resultSet intForColumn:@"points"]];
+        leagueTable.club = [self getClubById:[NSNumber numberWithInt:[resultSet intForColumn:@"clubid"]]];
+        leagueTable.season = [self getSeasonBySeason:[resultSet stringForColumn:@"season"]];
+        
+        [result addObject:leagueTable];
+    }
+    
+    
+    [db close];
+    
+    return result;
+}
+
 -(void)saveCalendarItem:(MICalendarItem *)calendarItem
 {
     [db open];
@@ -162,9 +200,21 @@ NSString *path;
 {
     [db open];
     
-    [db executeUpdate:@"INSERT INTO results (number, date, home_clubid, guest_clubid, home_goals, guest_goals, season) VALUES (?, ?, ?, ?, ?, ?, ?)",
-                        gameResult.number, gameResult.date, gameResult.homeClub.id, gameResult.guestClub.id, gameResult.homeGoals,
-                        gameResult.guestGoals, gameResult.season];
+    [db executeUpdate:@"INSERT INTO results (number, date, home_clubid, guest_clubid, home_goals, guest_goals, season) "
+                       "VALUES (?, ?, ?, ?, ?, ?, ?)", gameResult.number, gameResult.date, gameResult.homeClub.id,
+                        gameResult.guestClub.id, gameResult.homeGoals, gameResult.guestGoals, gameResult.season];
+    
+    [db close];
+}
+
+-(void)saveLeagueTableItem:(MILeagueTableItem *)leagueTableItem
+{
+    [db open];
+    
+    [db executeUpdate:@"INSERT INTO league_tables (position, wins, draws, loses, goal_for, goal_against, points, clubid, season) "
+                       "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", leagueTableItem.position, leagueTableItem.wins, leagueTableItem.draws,
+                        leagueTableItem.loses, leagueTableItem.goalFor, leagueTableItem.goalAgainst, leagueTableItem.points,
+                        leagueTableItem.club.id, leagueTableItem.season];
     
     [db close];
 }

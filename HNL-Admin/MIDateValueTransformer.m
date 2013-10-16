@@ -6,8 +6,8 @@
 {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"EEE, dd MMMM yyyy 'at' HH:mm"];
-    NSString *result = [dateFormatter stringFromDate:(NSDate *) value];
     
+    NSString *result = [dateFormatter stringFromDate:(NSDate *) value];    
     return result;
 }
 
