@@ -2,12 +2,12 @@
 
 @interface MIClub : NSObject
 
-@property (strong, atomic) NSNumber *id;
+@property (strong) NSNumber *id;
 
-@property (strong, atomic) NSString *name;
+@property (strong) NSString *name;
 
-@property (strong, atomic) NSString *shortName;
+@property (strong) NSString *shortName;
 
-@property (strong, atomic) NSString *imageName;
+@property (strong) NSString *imageName;
 
 @end

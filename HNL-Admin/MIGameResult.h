@@ -3,13 +3,13 @@
 
 @interface MIGameResult : NSObject
 
-@property (strong, atomic) NSNumber *id;
-@property (strong, atomic) NSString *season;
-@property (strong, atomic) NSDate *date;
-@property (strong, atomic) MIClub *homeClub;
-@property (strong, atomic) MIClub *guestClub;
-@property (strong, atomic) NSNumber *homeGoals;
-@property (strong, atomic) NSNumber *guestGoals;
-@property (strong, atomic) NSNumber *number;
+@property (strong) NSNumber *id;
+@property (strong) NSString *season;
+@property (strong) NSDate *date;
+@property (strong) MIClub *homeClub;
+@property (strong) MIClub *guestClub;
+@property (strong) NSNumber *homeGoals;
+@property (strong) NSNumber *guestGoals;
+@property (strong) NSNumber *number;
 
 @end

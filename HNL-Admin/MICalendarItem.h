@@ -3,9 +3,9 @@
 
 @interface MICalendarItem : NSObject
 
-@property (strong, atomic) NSNumber *id;
-@property (strong, atomic) MIClub *homeClub;
-@property (strong, atomic) MIClub *guestClub;
-@property (strong, atomic) NSDate *matchDate;
+@property (strong) NSNumber *id;
+@property (strong) MIClub *homeClub;
+@property (strong) MIClub *guestClub;
+@property (strong) NSDate *matchDate;
 
 @end

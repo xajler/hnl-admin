@@ -2,11 +2,10 @@
 
 @implementation MIClub
 
-@synthesize id, name, shortName, imageName;
 
 -(NSString *)description
 {
-    return self.name;
+    return _name;
 }
 
 @end

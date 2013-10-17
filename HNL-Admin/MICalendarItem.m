@@ -2,6 +2,4 @@
 
 @implementation MICalendarItem
 
-@synthesize id, homeClub, guestClub, matchDate;
-
 @end
