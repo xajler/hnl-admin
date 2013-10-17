@@ -22,7 +22,7 @@
     self.seasons = [self.query getSeasons];
     self.gameResults = [self.query getGameResultsForSeason:nil];
     self.calendarItems = [self.query getCalendarItems];
-    self.leagueTableItems = [self.query getLeagueTableItemsForSeason:@"2013/14"];
+    self.leagueTableItems = [self.query getLeagueTableItemsForSeason:MICurrentSeason];
     
     return self;
 }
@@ -42,8 +42,8 @@
 - (IBAction)saveCalendarItem:(id)sender
 {
     MICalendarItem *calendarItem = [[MICalendarItem alloc] init];
-    calendarItem.homeClub = (MIClub *)[self.clubs objectAtIndex:[self.calendarHomeClubComboBox indexOfSelectedItem]];
-    calendarItem.guestClub = (MIClub *)[self.clubs objectAtIndex:[self.calendarGuestClubComboBox indexOfSelectedItem]];
+    calendarItem.homeClub = (MIClub *)(self.clubs)[[self.calendarHomeClubComboBox indexOfSelectedItem]];
+    calendarItem.guestClub = (MIClub *)(self.clubs)[[self.calendarGuestClubComboBox indexOfSelectedItem]];
     calendarItem.matchDate = self.calendarMatchDatePicker.dateValue;
     
     [self.query saveCalendarItem:calendarItem];
@@ -57,13 +57,13 @@
 - (IBAction)saveGameResult:(id)sender
 {
     MIGameResult *gameResult = [[MIGameResult alloc] init];
-    gameResult.number = [NSNumber numberWithInteger:[self.resultMatchNumberTextField.stringValue integerValue]];
+    gameResult.number = @([self.resultMatchNumberTextField.stringValue integerValue]);
     gameResult.date = self.resultMatchDatePicker.dateValue;
-    gameResult.homeClub = (MIClub *)[self.clubs objectAtIndex:[self.resultHomeClubComboBox indexOfSelectedItem]];
-    gameResult.guestClub = (MIClub*)[self.clubs objectAtIndex:[self.resultGuestClubComboBox indexOfSelectedItem]];
-    gameResult.homeGoals = [NSNumber numberWithInteger:[self.resultHomeGoalsTextField.stringValue integerValue]];
-    gameResult.guestGoals = [NSNumber numberWithInteger:[self.resultGuestGoalsTextField.stringValue integerValue]];
-    gameResult.season = [self.seasons objectAtIndex:[self.resultSeasonComboBox indexOfSelectedItem]];
+    gameResult.homeClub = (MIClub *)(self.clubs)[[self.resultHomeClubComboBox indexOfSelectedItem]];
+    gameResult.guestClub = (MIClub*)(self.clubs)[[self.resultGuestClubComboBox indexOfSelectedItem]];
+    gameResult.homeGoals = @([self.resultHomeGoalsTextField.stringValue integerValue]);
+    gameResult.guestGoals = @([self.resultGuestGoalsTextField.stringValue integerValue]);
+    gameResult.season = (self.seasons)[[self.resultSeasonComboBox indexOfSelectedItem]];
     
     [self.query saveGameResult:gameResult];
     self.gameResults = [self.query getGameResultsForSeason:nil];
@@ -72,17 +72,17 @@
 - (IBAction)saveLeagueTableItem:(id)sender
 {
     MILeagueTableItem *leagueTableItem = [[MILeagueTableItem alloc] init];
-    leagueTableItem.position = [NSNumber numberWithInteger:[self.positonTextField.stringValue integerValue]];
-    leagueTableItem.wins = [NSNumber numberWithInteger:[self.winsTextField.stringValue integerValue]];
-    leagueTableItem.draws = [NSNumber numberWithInteger:[self.drawsTextField.stringValue integerValue]];
-    leagueTableItem.loses = [NSNumber numberWithInteger:[self.losesTextField.stringValue integerValue]];
-    leagueTableItem.goalFor = [NSNumber numberWithInteger:[self.goalForTextField.stringValue integerValue]];
-    leagueTableItem.goalAgainst = [NSNumber numberWithInteger:[self.goalAgainstTextField.stringValue integerValue]];
-    leagueTableItem.points = [NSNumber numberWithInteger:[self.pointsTextField.stringValue integerValue]];
-    leagueTableItem.club = (MIClub *)[self.clubs objectAtIndex:[self.leagueTableClubComboBox indexOfSelectedItem]];
-    leagueTableItem.season = [self.seasons objectAtIndex:[self.leagueTableSeasonComboBox indexOfSelectedItem]];
+    leagueTableItem.position = @([self.positonTextField.stringValue integerValue]);
+    leagueTableItem.wins = @([self.winsTextField.stringValue integerValue]);
+    leagueTableItem.draws = @([self.drawsTextField.stringValue integerValue]);
+    leagueTableItem.loses = @([self.losesTextField.stringValue integerValue]);
+    leagueTableItem.goalFor = @([self.goalForTextField.stringValue integerValue]);
+    leagueTableItem.goalAgainst = @([self.goalAgainstTextField.stringValue integerValue]);
+    leagueTableItem.points = @([self.pointsTextField.stringValue integerValue]);
+    leagueTableItem.club = (MIClub *)(self.clubs)[[self.leagueTableClubComboBox indexOfSelectedItem]];
+    leagueTableItem.season = (self.seasons)[[self.leagueTableSeasonComboBox indexOfSelectedItem]];
     
     [self.query saveLeagueTableItem:leagueTableItem];
-    self.leagueTableItems = [self.query getLeagueTableItemsForSeason:@"2013/14"];
+    self.leagueTableItems = [self.query getLeagueTableItemsForSeason:MICurrentSeason];
 }
 @end

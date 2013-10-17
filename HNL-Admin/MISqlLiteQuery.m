@@ -6,6 +6,8 @@
 #import "MICalendarItem.h"
 #import "MILeagueTableItem.h"
 
+NSString *const MICurrentSeason = @"2013/14";
+
 @implementation MISqlLiteQuery
 
 FMDatabase *db;
@@ -38,7 +40,7 @@ NSString *path;
     {
         MIClub *club = [[MIClub alloc] init];
         
-        club.id = [NSNumber numberWithInt:[resultSet intForColumn:@"id"]];
+        club.id = @([resultSet intForColumn:@"id"]);
         club.name = [resultSet stringForColumn:@"name"];
         club.shortName = [resultSet stringForColumn:@"short_name"];
         club.imageName = [resultSet stringForColumn:@"image_name"];
@@ -77,14 +79,14 @@ NSString *path;
     while ([resultSet next])
     {
         MIGameResult *gameResult = [[MIGameResult alloc] init];
-        gameResult.id = [NSNumber numberWithInt:[resultSet intForColumn:@"id"]];
+        gameResult.id = @([resultSet intForColumn:@"id"]);
         gameResult.season = [self getSeasonBySeason:[resultSet stringForColumn:@"season"]];
         gameResult.date = [resultSet dateForColumn:@"date"];
-        gameResult.homeClub = [self getClubById:[NSNumber numberWithInt:[resultSet intForColumn:@"home_clubid"]]];
-        gameResult.guestClub = [self getClubById:[NSNumber numberWithInt:[resultSet intForColumn:@"guest_clubid"]]];
-        gameResult.homeGoals = [NSNumber numberWithInt:[resultSet intForColumn:@"home_goals"]];
-        gameResult.guestGoals = [NSNumber numberWithInt:[resultSet intForColumn:@"guest_goals"]];
-        gameResult.number = [NSNumber numberWithInt:[resultSet intForColumn:@"number"]];
+        gameResult.homeClub = [self getClubById:@([resultSet intForColumn:@"home_clubid"])];
+        gameResult.guestClub = [self getClubById:@([resultSet intForColumn:@"guest_clubid"])];
+        gameResult.homeGoals = @([resultSet intForColumn:@"home_goals"]);
+        gameResult.guestGoals = @([resultSet intForColumn:@"guest_goals"]);
+        gameResult.number = @([resultSet intForColumn:@"number"]);
         
         [result addObject:gameResult];
     }
@@ -136,9 +138,9 @@ NSString *path;
     while ([resultSet next])
     {
         MICalendarItem *calendarItem = [[MICalendarItem alloc] init];
-        calendarItem.id = [NSNumber numberWithInt:[resultSet intForColumn:@"id"]];
-        calendarItem.homeClub = [self getClubById:[NSNumber numberWithInt:[resultSet intForColumn:@"home_clubid"]]];
-        calendarItem.guestClub = [self getClubById:[NSNumber numberWithInt:[resultSet intForColumn:@"guest_clubid"]]];
+        calendarItem.id = @([resultSet intForColumn:@"id"]);
+        calendarItem.homeClub = [self getClubById:@([resultSet intForColumn:@"home_clubid"])];
+        calendarItem.guestClub = [self getClubById:@([resultSet intForColumn:@"guest_clubid"])];
         calendarItem.matchDate = [resultSet dateForColumn:@"match_date"];
         
         [result addObject:calendarItem];
@@ -166,15 +168,15 @@ NSString *path;
     while ([resultSet next])
     {
         MILeagueTableItem *leagueTable = [[MILeagueTableItem alloc] init];
-        leagueTable.id = [NSNumber numberWithInt:[resultSet intForColumn:@"id"]];
-        leagueTable.position = [NSNumber numberWithInt:[resultSet intForColumn:@"position"]];
-        leagueTable.wins = [NSNumber numberWithInt:[resultSet intForColumn:@"wins"]];
-        leagueTable.draws = [NSNumber numberWithInt:[resultSet intForColumn:@"draws"]];
-        leagueTable.loses = [NSNumber numberWithInt:[resultSet intForColumn:@"loses"]];
-        leagueTable.goalFor = [NSNumber numberWithInt:[resultSet intForColumn:@"goal_for"]];
-        leagueTable.goalAgainst = [NSNumber numberWithInt:[resultSet intForColumn:@"goal_against"]];
-        leagueTable.points = [NSNumber numberWithInt:[resultSet intForColumn:@"points"]];
-        leagueTable.club = [self getClubById:[NSNumber numberWithInt:[resultSet intForColumn:@"clubid"]]];
+        leagueTable.id = @([resultSet intForColumn:@"id"]);
+        leagueTable.position = @([resultSet intForColumn:@"position"]);
+        leagueTable.wins = @([resultSet intForColumn:@"wins"]);
+        leagueTable.draws = @([resultSet intForColumn:@"draws"]);
+        leagueTable.loses = @([resultSet intForColumn:@"loses"]);
+        leagueTable.goalFor = @([resultSet intForColumn:@"goal_for"]);
+        leagueTable.goalAgainst = @([resultSet intForColumn:@"goal_against"]);
+        leagueTable.points = @([resultSet intForColumn:@"points"]);
+        leagueTable.club = [self getClubById:@([resultSet intForColumn:@"clubid"])];
         leagueTable.season = [self getSeasonBySeason:[resultSet stringForColumn:@"season"]];
         
         [result addObject:leagueTable];
