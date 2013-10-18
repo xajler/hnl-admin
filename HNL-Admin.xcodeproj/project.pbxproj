@@ -18,6 +18,7 @@
 		D49E9E12180201EA002F6EC0 /* MISqlLiteQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = D49E9E11180201EA002F6EC0 /* MISqlLiteQuery.m */; };
 		D49E9E151802177C002F6EC0 /* MIGameResult.m in Sources */ = {isa = PBXBuildFile; fileRef = D49E9E141802177C002F6EC0 /* MIGameResult.m */; };
 		D49E9E1818021AAB002F6EC0 /* MILeagueTableItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D49E9E1718021AAB002F6EC0 /* MILeagueTableItem.m */; };
+		D4AAD2621810A36A009240B4 /* MIPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AAD2611810A36A009240B4 /* MIPlayer.m */; };
 		D4BAFE3B17FA90B500A93B96 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4BAFE3A17FA90B500A93B96 /* Cocoa.framework */; };
 		D4BAFE4517FA90B500A93B96 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D4BAFE4317FA90B500A93B96 /* InfoPlist.strings */; };
 		D4BAFE4717FA90B500A93B96 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D4BAFE4617FA90B500A93B96 /* main.m */; };
@@ -47,6 +48,8 @@
 		D49E9E141802177C002F6EC0 /* MIGameResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MIGameResult.m; sourceTree = "<group>"; };
 		D49E9E1618021AAB002F6EC0 /* MILeagueTableItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MILeagueTableItem.h; sourceTree = "<group>"; };
 		D49E9E1718021AAB002F6EC0 /* MILeagueTableItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MILeagueTableItem.m; sourceTree = "<group>"; };
+		D4AAD2601810A36A009240B4 /* MIPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MIPlayer.h; sourceTree = "<group>"; };
+		D4AAD2611810A36A009240B4 /* MIPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MIPlayer.m; sourceTree = "<group>"; };
 		D4BAFE3717FA90B500A93B96 /* HNL-Admin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "HNL-Admin.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4BAFE3A17FA90B500A93B96 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		D4BAFE3D17FA90B500A93B96 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -89,6 +92,8 @@
 				D49E9E1718021AAB002F6EC0 /* MILeagueTableItem.m */,
 				D42C38BD180B5DAB00B751F5 /* MICalendarItem.h */,
 				D42C38BE180B5DAB00B751F5 /* MICalendarItem.m */,
+				D4AAD2601810A36A009240B4 /* MIPlayer.h */,
+				D4AAD2611810A36A009240B4 /* MIPlayer.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -295,6 +300,7 @@
 				D49E9E0A1801F197002F6EC0 /* MIClub.m in Sources */,
 				D42C38BF180B5DAB00B751F5 /* MICalendarItem.m in Sources */,
 				D49E9E0E1801FFF7002F6EC0 /* MIHNLAdminController.m in Sources */,
+				D4AAD2621810A36A009240B4 /* MIPlayer.m in Sources */,
 				D4BAFE4E17FA90B500A93B96 /* MIAppDelegate.m in Sources */,
 				D49E9E1818021AAB002F6EC0 /* MILeagueTableItem.m in Sources */,
 				D4BAFE4717FA90B500A93B96 /* main.m in Sources */,

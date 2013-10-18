@@ -7,6 +7,8 @@
 @property (strong) NSMutableArray *gameResults;
 @property (strong) NSMutableArray *leagueTableItems;
 @property (strong) NSMutableArray *calendarItems;
+@property (strong) NSMutableArray *players;
+@property (strong) NSArray *playerPositions;
 
 @property (weak) IBOutlet NSTableView *resultsTableView;
 
@@ -33,9 +35,22 @@
 @property (weak) IBOutlet NSTextField *goalAgainstTextField;
 @property (weak) IBOutlet NSTextField *pointsTextField;
 
+@property (weak) IBOutlet NSTextField *firstNameTextField;
+@property (weak) IBOutlet NSTextField *lastNameTextField;
+@property (weak) IBOutlet NSTextField *uniformNumberTextField;
+@property (weak) IBOutlet NSDatePicker *birthDatePicker;
+@property (weak) IBOutlet NSTextField *heightTextField;
+@property (weak) IBOutlet NSTextField *weightTextField;
+@property (weak) IBOutlet NSDatePicker *contractUntilDatePicker;
+@property (weak) IBOutlet NSComboBox *playersSeasonComboBox;
+@property (weak) IBOutlet NSTextField *imageNameTextField;
+@property (unsafe_unretained) IBOutlet NSTextView *aboutTextView;
+@property (weak) IBOutlet NSComboBox *positionComboBox;
+
 
 - (IBAction)saveCalendarItem:(id)sender;
 - (IBAction)deleteCalendarItem:(id)sender;
 - (IBAction)saveGameResult:(id)sender;
 - (IBAction)saveLeagueTableItem:(id)sender;
+- (IBAction)savePlayer:(id)sender;
 @end

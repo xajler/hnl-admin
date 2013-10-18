@@ -5,6 +5,7 @@
 #import "MIGameResult.h"
 #import "MICalendarItem.h"
 #import "MILeagueTableItem.h"
+#import "MIPlayer.h"
 
 NSString *const MICurrentSeason = @"2013/14";
 
@@ -68,7 +69,7 @@ NSString *path;
     if (season)
     {
         query = [NSString stringWithFormat:@"%@ WHERE season = ?", query];
-        NSLog(@"%@", query);
+        // NSLog(@"%@", query);
         resultSet = [db executeQueryWithFormat:query, season];
     }
     else
@@ -80,7 +81,7 @@ NSString *path;
     {
         MIGameResult *gameResult = [[MIGameResult alloc] init];
         gameResult.id = @([resultSet intForColumn:@"id"]);
-        gameResult.season = [self getSeasonBySeason:[resultSet stringForColumn:@"season"]];
+        gameResult.season = [self getSeasonBySeason:season];
         gameResult.date = [resultSet dateForColumn:@"date"];
         gameResult.homeClub = [self getClubById:@([resultSet intForColumn:@"home_clubid"])];
         gameResult.guestClub = [self getClubById:@([resultSet intForColumn:@"guest_clubid"])];
@@ -177,11 +178,45 @@ NSString *path;
         leagueTable.goalAgainst = @([resultSet intForColumn:@"goal_against"]);
         leagueTable.points = @([resultSet intForColumn:@"points"]);
         leagueTable.club = [self getClubById:@([resultSet intForColumn:@"clubid"])];
-        leagueTable.season = [self getSeasonBySeason:[resultSet stringForColumn:@"season"]];
+        leagueTable.season = [self getSeasonBySeason:season];
         
         [result addObject:leagueTable];
     }
     
+    
+    [db close];
+    
+    return result;
+}
+
+-(NSMutableArray *)getPlayersForSeason:(NSString *)season
+{
+    [db open];
+    
+    NSMutableArray *result = [[NSMutableArray alloc] init];
+    FMResultSet *resultSet = [db executeQuery:@"SELECT id, birth_date, height, weight, position, uniform_number, image_name, "
+                                                       "about, contract_until_date, season, first_name, last_name "
+                                               "FROM players "
+                                               "WHERE season = ?", season];
+    
+    while ([resultSet next])
+    {
+        MIPlayer *player = [[MIPlayer alloc] init];
+        player.id = @([resultSet intForColumn:@"id"]);
+        player.birthDate = [resultSet dateForColumn:@"birth_date"];
+        player.height = @([resultSet intForColumn:@"height"]);
+        player.weight = @([resultSet intForColumn:@"weight"]);
+        player.position = [resultSet stringForColumn:@"position"];
+        player.uniformNumber = @([resultSet intForColumn:@"uniform_number"]);
+        player.about = [resultSet stringForColumn:@"about"];
+        player.contractUntilDate = [resultSet dateForColumn:@"contract_until_date"];
+        player.season = [self getSeasonBySeason:season];
+        player.firstName = [resultSet stringForColumn:@"first_name"];
+        player.lastName = [resultSet stringForColumn:@"last_name"];
+        player.imageName = [resultSet stringForColumn:@"image_name"];
+        
+        [result addObject:player];
+    }
     
     [db close];
     
@@ -217,6 +252,19 @@ NSString *path;
                        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", leagueTableItem.position, leagueTableItem.wins, leagueTableItem.draws,
                         leagueTableItem.loses, leagueTableItem.goalFor, leagueTableItem.goalAgainst, leagueTableItem.points,
                         leagueTableItem.club.id, leagueTableItem.season];
+    
+    [db close];
+}
+
+-(void)savePlayer:(MIPlayer *)player
+{
+    [db open];
+    
+    [db executeUpdate:@"INSERT INTO players (birth_date, height, weight, position, uniform_number, about, contract_until_date, "
+                                             "season, first_name, last_name, image_name) "
+                        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", player.birthDate, player.height, player.weight, player.position,
+                         player.uniformNumber, player.about, player.contractUntilDate, player.season, player.firstName, player.lastName,
+                         player.imageName];
     
     [db close];
 }

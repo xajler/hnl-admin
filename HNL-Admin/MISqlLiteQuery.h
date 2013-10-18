@@ -2,6 +2,7 @@
 #import "MICalendarItem.h"
 #import "MIGameResult.h"
 #import "MILeagueTableItem.h"
+#import "MIPlayer.h"
 
 @interface MISqlLiteQuery : NSObject
 
@@ -17,10 +18,14 @@ extern NSString *const MICurrentSeason;
 
 -(NSMutableArray *)getLeagueTableItemsForSeason:(NSString *)season;
 
+-(NSMutableArray *)getPlayersForSeason:(NSString *)season;
+
 -(void)saveCalendarItem:(MICalendarItem *)calendarItem;
 
 -(void)saveGameResult:(MIGameResult *)gameResult;
 
 -(void)saveLeagueTableItem:(MILeagueTableItem *)leagueTableItem;
+
+-(void)savePlayer:(MIPlayer *)player;
 
 @end
